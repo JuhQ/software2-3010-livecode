@@ -10,6 +10,8 @@ class Storage:
             print(file)
 
 class Camera:
+    def __init__(self):
+        self.photo = ""
     def take_photo(self):
         print("click, photo taken")
         self.photo = "my_photo.jpg"
@@ -19,9 +21,11 @@ class GPS:
     lon = 20.2389
 
 class Call:
-    def dial(self, to_number):
+    @staticmethod
+    def dial(to_number):
         for number in to_number:
             print(f"Dialing number: {number}")
+
     def make_call(self, to_number):
         self.dial(to_number)
         print(f"Call is active to number {to_number}")
@@ -29,6 +33,7 @@ class Call:
 class Phone(Call, Storage, GPS, Camera):
     def __init__(self, brand, model, price):
         Storage.__init__(self)
+        Camera.__init__(self)
         self.brand = brand
         self.price = price
         self.model = model
@@ -51,7 +56,9 @@ class Laptop(Storage, Camera):
 laptop = Laptop()
 laptop.add_file("excel.xlx")
 laptop.take_photo()
-laptop.photo
+print(laptop.photo)
+laptop.add_file(laptop.photo)
+laptop.list_files_in_storage()
 
 phone = Phone("Nokia", 8110, 200)
 phone2 = Phone("Nokia", 8110, 200)
